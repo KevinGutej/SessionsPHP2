@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +13,16 @@
 </head>
 
 <body>
+    <div class = "message-error">
+        <?php
+            
+            if(isset($_SESSION['error'])) {
+                echo $_SESSION['error'];
+            }
+        ?>
+    </div>
+   
+
     <form action="register.php" method="post">
         <div>
             Login: <input name="login" type="text" required>

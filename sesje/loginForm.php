@@ -12,12 +12,14 @@ session_start();
 </head>
 
 <body>
-<?php
-    
-    if(isset($_SESSION['error'])) {
-        echo $_SESSION['error'];
-    }
-?>
+    <div class="message-error">
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo $_SESSION['error'];
+        }
+        ?>
+    </div>
+
     <form action="login.php" method="post">
         <div>
             Login: <input name="login" type="text" required>

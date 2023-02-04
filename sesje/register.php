@@ -1,14 +1,18 @@
 <?php
 
+session_start();
+
 if (isset($_POST['login']) && empty($_POST['login']) == false) {
     if (isset($_POST['password']) && empty($_POST['password']) == false) {
         if (isset($_POST['age']) && empty($_POST['age']) == false) {
             if (isset($_POST['re-password']) && empty($_POST['re-password']) == false) {
-                if (isset($_POST['password']) != ($_POST['re-password'])) {
-                    echo 'Password does not match';
+                if ($_POST['password'] != $_POST['re-password']) {
+                    $_SESSION['error'] = 'Password does not match';
+                    header('location:registrationForm.php');
                 } else {
                     if ((int)$_POST['age'] < 18) {
-                        echo 'You are not old enough to register';
+                        $_SESSION['error'] = 'You are not old enough to register';
+                        header('location:registrationForm.php');
                     } else {
                         $givenLogin = $_POST['login'];
                         $givenPassword = $_POST['password'];
@@ -28,15 +32,23 @@ if (isset($givenLogin)) {
         $result = $connection->query($sqlReq);
 
         if ($result->num_rows == 1) {
-            echo '[Error] - There is already a user with that login';
-            echo '<br>';
-            echo 'Please Choose different login';
+            $_SESSION['error'] = '[Error] - There is already a user with that login' .
+                '<br>' .
+                'Please Choose different login';
+            header('location:registrationForm.php');
         } else if ($result->num_rows == 0) {
             $sqlReq = "INSERT INTO users (login, age, password) VALUES ('$givenLogin', $givenAge,  '$givenPassword');";
             $result = $connection->query($sqlReq);
-            //Handle error while inserting it NEXT LESSON!
+            if ($result === false) {
+                $_SESSION['error'] = 'Can\'t register another user with this login as it\'s already in use';
+                header('location:registrationForm.php');
+            } else {
+                $_SESSION['error'] = 'You are registered';
+                header('location:loginForm.php');
+            }
         }
     } else {
-        echo 'Error with connecting';
+        $_SESSION['error'] = 'Error with connecting to database, try again later';
+        header('location:registrationForm.php');
     }
 }
