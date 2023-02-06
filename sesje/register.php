@@ -43,7 +43,8 @@ if (isset($givenLogin)) {
                 $_SESSION['error'] = 'Can\'t register another user with this login as it\'s already in use';
                 header('location:registrationForm.php');
             } else {
-                $_SESSION['error'] = 'You are registered';
+                $_SESSION['message'] = 'You are registered';
+                unset($_SESSION['error']);
                 header('location:loginForm.php');
             }
         }
