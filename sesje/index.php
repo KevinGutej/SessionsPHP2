@@ -11,5 +11,5 @@ else {
     echo "You are not logged in";
     echo '<a href="loginForm.php">Click here to login</a>';
 }
-
+include('userData.php');
 ?>

@@ -38,7 +38,7 @@ session_start();
             Password: <input name="password" type="password" required>
         </div>
         <div>
-            <input type="submit" value="Send">
+            <input type="submit" value="Login">
         </div>
     </form>
 </body>

@@ -37,7 +37,7 @@ session_start();
             Login: <input name="login" type="text" required>
         </div>
         <div>
-            age: <input name="age" type="number" required>
+            age: <input name="age" type="number" min="0" required>
         </div>
         <div>
             Password: <input name="password" type="password" required>

@@ -11,19 +11,18 @@ if (isset($_POST['login']) && empty($_POST['login']) == false) {
 
             $givenLogin = $_POST['login'];
             $givenPassword = $_POST['password'];
-            $sqlReq = "SELECT login, password FROM users WHERE login = '$givenLogin';";
-            // AND password = '$givenPassword'
+            $sqlReq = "SELECT login, password FROM users WHERE login = '$givenLogin' AND password = '$givenPassword';";
             $result = $connection->query($sqlReq);
 
             if ($result->num_rows == 0) {
-                //NEXTLESSON ERROR: TRY AGAIN WITH DIFFERENT LOGIN/PASSWORD
+                $_SESSION['error'] =  "Please try again with different login/password";
+                header('location:loginForm.php');
             } else {
                 $login = $givenLogin;
                 $user = $result->fetch_assoc();
                 $login = $user['login'];
                 $password = $user['password'];
             }
-            //NEXT LESSON FINISH THIS!!!!!!!!
         }
         if ($_POST['login'] == $login) {
             if ($_POST['password'] == $password) {
@@ -31,11 +30,11 @@ if (isset($_POST['login']) && empty($_POST['login']) == false) {
                 $_SESSION['login'] = $login;
                 header('location:index.php');
             } else {
-                $_SESSION['error'] = 'password is not correct';
+                $_SESSION['error'] = 'The given password is not correct';
                 header('location:loginForm.php');
             }
         } else {
-            $_SESSION['error'] = 'Error login is not correct';
+            $_SESSION['error'] = 'User with this login cannot be fount';
             header('location:loginForm.php');
         }
     } else {
