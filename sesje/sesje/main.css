@@ -1,0 +1,9 @@
+.message-error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    
+}
+.message-prompt {
+    color: green;
+    background-color: rgb(154, 239, 154);
+}
